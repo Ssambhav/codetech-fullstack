@@ -1,0 +1,112 @@
+.navbar {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  padding: 0.3rem 1.1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Top Row: Title + Toggle */
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Title */
+.nav-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--nav-accent);
+}
+
+.nav-title:hover {
+  color: var(--nav-hover);
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.2rem;
+}
+
+.nav-links a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s, border-bottom 0.2s;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+  color: var(--nav-hover);
+}
+
+.nav-links a.active {
+  border-bottom: 2px solid var(--nav-accent);
+  font-weight: 600;
+}
+
+/* Toggle Button */
+.mode-toggle {
+  background: none;
+  color: var(--nav-text);
+  padding: 0.4rem 0.6rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: none;
+}
+
+.mode-toggle:hover {
+  background-color: var(--nav-hover);
+  text-decoration: none;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Theme variables */
+:root {
+  --nav-bg: #0a3158;
+  --nav-text: #bde1e8;
+  --nav-accent: #bde1e8;
+  --nav-hover: #47a0b2;
+}
+
+body.dark {
+  --nav-bg: #121a26;
+  --nav-text: #e0e0e0;
+  --nav-accent: #00ffff;
+  --nav-hover: #bcc2cc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+  }
+}

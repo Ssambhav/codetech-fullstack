@@ -1,0 +1,298 @@
+:root {
+  --bg: #f6fafb;
+  --chat-bg: #e2e2e2;
+  --msg-bg: #007bff;
+  --input-text: #000000;
+  --border: #ccc;
+  --primary-hover: #0056b3;
+  --button-disabled: #888;
+  --timestamp: #cadade;
+  --button-icon: #f2eaea;
+}
+
+body.dark {
+  --bg: #1e1e1e;
+  --chat-bg: #121212;
+  --msg-bg: #2a2a2a;
+  --input-text: #ffffff;
+  --border: #333;
+  --primary-hover: #52585f;
+  --button-disabled: #555;
+  --timestamp: #aaa;
+  --button-icon: #ccc;
+}
+
+/* === Layout === */
+.lawbot-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg);
+  padding: 0.6rem 1.4rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.lawbot-chat-window {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  padding: 1.4rem;
+  margin-bottom: 0.6rem;
+  background-color: var(--chat-bg);
+  border-radius: 10px;
+  scroll-behavior: smooth;
+}
+
+/* === Messages === */
+.lawbot-message {
+  width: fit-content;
+  max-width: 1200px;
+  margin-bottom: 1.4rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lawbot-message.user {
+  margin-left: auto;
+  background-color: var(--msg-bg);
+  color: white;
+}
+
+.lawbot-message.bot {
+  margin-right: auto;
+  background-color: var(--msg-bg);
+  color: white;
+}
+
+.message-text {
+  white-space: pre-line;
+}
+
+.formatted-bullets {
+  list-style-type: disc;
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* === Metadata & Buttons === */
+.message-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--timestamp);
+}
+
+.timestamp {
+  font-style: italic;
+}
+
+.copy-btn,
+.retry-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  color: var(--button-icon);
+  transition: opacity 0.2s ease;
+}
+
+.copy-btn:hover,
+.retry-btn:hover {
+  opacity: 0.7;
+}
+
+/* === Input Section === */
+.lawbot-input-section {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--chat-bg);
+  border-top: 1px solid var(--border);
+  border-radius: 6px;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.lawbot-input-section input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--chat-bg);
+  color: var(--input-text);
+  font-size: 1rem;
+}
+
+.lawbot-input-section input:focus {
+  border-color: var(--msg-bg);
+}
+
+.lawbot-input-section button {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background-color: var(--msg-bg);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.lawbot-input-section button:disabled {
+  background-color: var(--button-disabled);
+  cursor: not-allowed;
+}
+
+.lawbot-input-section button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+/* === Clear Chat === */
+.clear-chat-btn {
+  position: sticky;
+  top: 0;
+  background-color: var(--chat-bg);
+  color: var(--input-text);
+  border: none;
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.clear-chat-btn:hover {
+  background-color: var(--primary-hover);
+  color: var(--bg);
+}
+
+/* === Welcome Message === */
+.lawbot-welcome-overlay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  padding: 1.2rem 1.5rem;
+  color: var(--input-text);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1rem;
+  z-index: 2;
+  backdrop-filter: blur(6px);
+}
+
+.suggestion-list {
+  list-style: none;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.suggestion-list li::before {
+  content: "👉 ";
+  margin-right: 4px;
+}
+
+/* === Copy Toast === */
+.copy-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2d9cdb;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  z-index: 99;
+  animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* === Typing Animation === */
+.dots {
+  font-size: 1.5rem;
+  line-height: 1;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* === Focus Reset === */
+button:focus,
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .lawbot-container {
+    padding: 0.5rem;
+    height: 100vh;
+  }
+
+  .lawbot-chat-window {
+    padding: 1rem 0.8rem;
+  }
+
+  .lawbot-message {
+    max-width: 90%;
+  }
+
+  .lawbot-input-section {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .lawbot-input-section button {
+    width: 100%;
+  }
+
+  .lawbot-welcome-overlay {
+    font-size: 0.9rem;
+    padding: 0.3rem;
+  }
+
+  .copy-toast {
+    font-size: 0.8rem;
+    bottom: 70px;
+  }
+}
