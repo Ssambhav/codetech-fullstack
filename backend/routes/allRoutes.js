@@ -1,27 +1,18 @@
-// backend/routes/allRoutes.js
 import express from "express";
 import { getLawAdvice } from "../controllers/lawbotController.js";
-import {
-  getRightsByCategory,
-  refreshRightByCategory,
-} from "../controllers/rightsController.js";
+import { getRightsByCategory } from "../controllers/rightsController.js";
+import { getStateLawSummary } from "../controllers/stateLawController.js";
 
-import {
-  getStateLawSummary,
-  refreshStateLaw,
-} from "../controllers/stateLawController.js";
+// NEW
+import { getWeather } from "../controllers/weatherController.js";
 
 const router = express.Router();
 
-// LawBot Route
 router.post("/lawbot", getLawAdvice);
-
-// Rights Routes
 router.get("/rights/:category", getRightsByCategory);
-router.get("/rights/refresh/:category", refreshRightByCategory);
-
-// State Law Routes
 router.get("/state-laws/:state", getStateLawSummary);
-router.get("/state-laws/refresh/:state", refreshStateLaw);
+
+// NEW ROUTE
+router.get("/weather", getWeather);
 
 export default router;
