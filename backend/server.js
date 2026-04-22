@@ -1,40 +1,36 @@
-// backend/server.js
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import http from "http";
+import { Server } from "socket.io";
+
 import connectDB from "./config/db.js";
 import allRoutes from "./routes/allRoutes.js";
-import "./jobs/autoRefresh.js";
+import { initSocket } from "./socket.js";
 
 dotenv.config();
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: "*" } });
 
-// Middlewares 
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "https://know-my-rights.netlify.app"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Routes
 app.get("/", (_, res) => {
-  res.send("KnowMyRights API is running ✅");
+  res.send("API running");
 });
 
 app.use("/api", allRoutes);
 
-// Server start
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+// SOCKET INIT
+initSocket(io);
 
-app.use((req, res) => {
-  res.status(404).json({ message: "🔍 API route not found" });
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
 });
